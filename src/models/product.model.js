@@ -1,4 +1,3 @@
-// const snakeize = require('snakeize');
 const connection = require('./connection');
 
 const findAll = async () => {
