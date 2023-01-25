@@ -41,6 +41,17 @@ const insert = async (soldProducts) => {
   return insertId;
 };
 
+const update = async (newSaleProduct, id) => {
+  const values = newSaleProduct.map((e) => [...Object.values(e), Number(id)]);
+  console.log(values[0]);
+  const [response] = await connection.execute(
+    'UPDATE StoreManager.sales_products SET product_id = ? , quantity = ? WHERE sale_id = ?;',
+    values[0],
+);
+  console.log(response);
+  return response;
+};
+
 const delProc = async (id) => {
   const [result] = await connection.execute(
     'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
@@ -51,6 +62,7 @@ const delProc = async (id) => {
 
 module.exports = {
   delProc,
+  update,
   findAll,
   findById,
   insert,

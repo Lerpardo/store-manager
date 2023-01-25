@@ -29,6 +29,17 @@ const createNewSale = async (req, res) => {
   res.status(201).json(message);
 };
 
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const upSale = req.body;
+
+  const { type, message } = await saleProductService.update(upSale, id);
+
+  if (type) return res.status(mapError(type)).json({ message });
+
+  res.status(200).json(message);
+};
+
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
 
@@ -41,6 +52,7 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
   deleteProduct,
+  updateProduct,
   getSales,
   getSaleById,
   createNewSale,

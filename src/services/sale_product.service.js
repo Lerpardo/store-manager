@@ -14,15 +14,22 @@ const findById = async (id) => {
 };
 
 const insert = async (sale) => {
-  // const idError = await schema.validateProductsIds(sale);
-  // if (idError.type) return idError;
-
   const error = await schema.validateSaleProduct(sale);
   if (error.type) return error;
 
   const newSale = await saleProductModel.insert(sale);
   
   return { type: null, message: { id: newSale, itemsSold: sale } };
+};
+
+const update = async (values, id) => {
+  const newProduct = await saleProductModel.findById(id);
+  if (!newProduct.length) return { type: 'PRODUCT_NOT_FOUND', message: 'Sale not found' };
+  const error = await schema.validateSaleProduct(values);
+  if (error.type) return error;
+  await saleProductModel.update(values, id);
+
+  return { type: null, message: { saleId: id, itemsUpdated: values } };
 };
 
 const delProc = async (id) => {
@@ -37,6 +44,7 @@ const delProc = async (id) => {
 
 module.exports = {
   delProc,
+  update,
   findAll,
   findById,
   insert,
