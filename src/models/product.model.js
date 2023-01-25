@@ -38,7 +38,17 @@ const update = async (newName, id) => {
 
   return result;
 };
+
+const delProc = async (id) => {
+  const [result] = await connection.execute(
+    'DELETE FROM StoreManager.products WHERE id = ?',
+    [id],
+  );
+  return result;
+};
+
 module.exports = {
+  delProc,
   findAll,
   findById,
   insert,

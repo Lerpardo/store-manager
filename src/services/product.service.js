@@ -39,7 +39,18 @@ const update = async (name, id) => {
   return { type: null, message: newProduct };
 };
 
+const delProc = async (id) => {
+  const newProduct = await productModel.findById(id);
+
+  if (!newProduct.length) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
+  await productModel.delProc(id);
+
+  return { type: null, message: '' };
+};
+
 module.exports = {
+  delProc,
   findAll,
   findById,
   createProduct,

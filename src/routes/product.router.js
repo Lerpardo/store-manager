@@ -15,4 +15,6 @@ router.post('/', jsonParser, productController.createNewProduct);
 
 router.put('/:id', jsonParser, productController.updateProduct);
 
+router.delete('/:id', jsonParser, productController.deleteProduct);
+
 module.exports = router;
