@@ -14,7 +14,7 @@ const createNewSale = async (req, res) => {
 
   const { type, message } = await saleProductService.insert(sale);
 
-  if (type) return res.status(mapError(type)).json(message);
+  if (type) return res.status(mapError(type)).json({ message });
 
   res.status(201).json(message);
 };

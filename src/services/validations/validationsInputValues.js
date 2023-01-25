@@ -1,6 +1,8 @@
 const { productModel } = require('../../models');
 const { idSchema, addProductSchema, saleProductSchema } = require('./schemas');
 
+const notFounded = { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+
 const validateId = (id) => {
   const { error } = idSchema.validate(id);
   if (error) return { type: 'INVALID_VALUE', message: error.message };
@@ -32,11 +34,8 @@ const validateSaleProduct = async (sale) => {
   );
 
   const someProductIsMissing = saleProducts.some((product) => product.length === 0);
-  if (someProductIsMissing) {
-    return {
-      type: 'PRODUCT_NOT_FOUND', message: 'Product not found',
-    };
-  }
+  if (someProductIsMissing) return notFounded;
+  
   return { type: null, message: '' };
 };
 
