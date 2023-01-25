@@ -12,7 +12,7 @@ const findById = async (productId) => {
   
   const product = await productModel.findById(productId);
 
-  if (product.length === 0) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  if (!product.length) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 
   return { type: null, message: product };
 };
@@ -21,14 +21,27 @@ const createProduct = async (name) => {
   const error = schema.validateNewProduct(name);
   if (error.type) return error;
 
-  const newPassengerId = await productModel.insert({ name });
-  const [newPassenger] = await productModel.findById(newPassengerId);
+  const newProductId = await productModel.insert({ name });
+  const [newProduct] = await productModel.findById(newProductId);
 
-  return { type: null, message: newPassenger };
+  return { type: null, message: newProduct };
+};
+
+const update = async (name, id) => {
+  const error = schema.validateNewProduct(name);
+  if (error.type) return error;
+
+  await productModel.update(name, id);
+  const newProduct = await productModel.findById(id);
+
+  if (!newProduct.length) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  
+  return { type: null, message: newProduct };
 };
 
 module.exports = {
   findAll,
   findById,
   createProduct,
+  update,
 };

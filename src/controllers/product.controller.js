@@ -1,7 +1,7 @@
 const { productService } = require('../services');
 
 const { mapError } = require('./errorMap');
- 
+
 const getProducts = async (_req, res) => {
   const { type, message } = await productService.findAll();
 
@@ -24,14 +24,26 @@ const createNewProduct = async (req, res) => {
   const { name } = req.body;
   // const products = await addNewProducts(produto);
   const { type, message } = await productService.createProduct(name);
-  
+
   if (type) return res.status(mapError(type)).json({ message });
 
   res.status(201).json(message);
+};
+
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  const { type, message } = await productService.update(name, id);
+
+  if (type) return res.status(mapError(type)).json({ message });
+
+  res.status(200).json(...message);
 };
 
 module.exports = {
   getProducts,
   getProductById,
   createNewProduct,
+  updateProduct,
 };
