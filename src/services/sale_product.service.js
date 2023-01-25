@@ -25,7 +25,18 @@ const insert = async (sale) => {
   return { type: null, message: { id: newSale, itemsSold: sale } };
 };
 
+const delProc = async (id) => {
+  const newProduct = await saleProductModel.findById(id);
+
+  if (!newProduct.length) return { type: 'PRODUCT_NOT_FOUND', message: 'Sale not found' };
+
+  await saleProductModel.delProc(id);
+
+  return { type: null, message: '' };
+};
+
 module.exports = {
+  delProc,
   findAll,
   findById,
   insert,

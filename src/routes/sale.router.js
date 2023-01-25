@@ -13,4 +13,6 @@ router.get('/:id', jsonParser, saleProductController.getSaleById);
 
 router.post('/', jsonParser, saleProductController.createNewSale);
 
+router.delete('/:id', jsonParser, saleProductController.deleteProduct);
+
 module.exports = router;

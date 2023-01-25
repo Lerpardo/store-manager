@@ -41,7 +41,16 @@ const insert = async (soldProducts) => {
   return insertId;
 };
 
+const delProc = async (id) => {
+  const [result] = await connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
+    [id],
+  );
+  return result;
+};
+
 module.exports = {
+  delProc,
   findAll,
   findById,
   insert,
