@@ -9,6 +9,8 @@ const router = Router();
 
 router.get('/', jsonParser, saleProductController.getSales);
 
+router.get('/:id', jsonParser, saleProductController.getSaleById);
+
 router.post('/', jsonParser, saleProductController.createNewSale);
 
 module.exports = router;
