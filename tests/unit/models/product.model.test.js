@@ -39,6 +39,7 @@ describe('Verificando model Product', function () {
   })
 
   it('Atualizando produto já cadastrado', async () => {
+    sinon.stub(connection, 'execute').resolves();
     // Act
     const result = await productModel.update('Beterraba', 3);
     // Assert
@@ -47,4 +48,27 @@ describe('Verificando model Product', function () {
       name: "Beterraba"
     });
   })
+
+  it('Deletando produto', async () => {
+    sinon.stub(connection, 'execute').resolves();
+    // Act
+    const result = await productModel.delProc(3);
+    // Assert
+    expect(result).to.be.deep.equal(3);
+
+  })
+
+  it('Pesquisando produto', async () => {
+    sinon.stub(connection, 'execute').resolves([[{ "id": 1, "name": "Martelo de Thor" }]]);
+
+    // Act
+    const result = await productModel.queryProducts('martelo');
+    // Assert
+    expect(result).to.be.deep.equal([{ "id": 1, "name": "Martelo de Thor" }]);
+
+  })
+
+  afterEach(function () {
+    sinon.restore();
+  });
 })

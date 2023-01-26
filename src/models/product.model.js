@@ -31,25 +31,25 @@ const insert = async (passenger) => {
 };
 
 const update = async (name, id) => {
-   await connection.execute(
+  await connection.execute(
     'UPDATE StoreManager.products SET name=? WHERE id = ?;',
-     [name, id],
+    [name, id],
   );
 
   return { id, name };
 };
 
 const delProc = async (id) => {
-  const [result] = await connection.execute(
+  await connection.execute(
     'DELETE FROM StoreManager.products WHERE id = ?',
     [id],
   );
-  return result;
+  return id;
 };
 
 const queryProducts = async (query) => {
   const [result] = await connection.execute(
-  `SELECT * FROM  StoreManager.products WHERE name LIKE '%${query}%';`,
+    `SELECT * FROM  StoreManager.products WHERE name LIKE '%${query}%';`,
     [query],
   );
   return result;
