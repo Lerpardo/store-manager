@@ -49,10 +49,17 @@ const delProc = async (id) => {
   return { type: null, message: '' };
 };
 
+const queryProducts = async (query) => {
+  const queried = await productModel.queryProducts(query);
+
+  return { type: null, message: queried };
+};
+
 module.exports = {
   delProc,
   findAll,
   findById,
   createProduct,
   update,
+  queryProducts,
 };

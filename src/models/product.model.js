@@ -30,13 +30,13 @@ const insert = async (passenger) => {
   return insertId;
 };
 
-const update = async (newName, id) => {
-  const [result] = await connection.execute(
+const update = async (name, id) => {
+   await connection.execute(
     'UPDATE StoreManager.products SET name=? WHERE id = ?;',
-    [newName, id],
+     [name, id],
   );
 
-  return result;
+  return { id, name };
 };
 
 const delProc = async (id) => {
@@ -47,10 +47,19 @@ const delProc = async (id) => {
   return result;
 };
 
+const queryProducts = async (query) => {
+  const [result] = await connection.execute(
+  `SELECT * FROM  StoreManager.products WHERE name LIKE '%${query}%';`,
+    [query],
+  );
+  return result;
+};
+
 module.exports = {
   delProc,
   findAll,
   findById,
   insert,
   update,
+  queryProducts,
 };
