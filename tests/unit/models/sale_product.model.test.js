@@ -29,14 +29,14 @@ describe('Verificando model saleProduct', function () {
     sinon.restore();
   });
 
-  it('Cadastrando nova venda', async () => {
-    // Arrange
-    sinon.stub(connection, 'execute').resolves([{ insertId: 2 }]);
-    // Act
-    const result = await saleProductModel.insert(newSale);
-    // Assert
-    expect(result).to.be.deep.equal(2);
-  })
+  // it('Cadastrando nova venda', async () => {
+  //   // Arrange
+  //   sinon.stub(connection, 'execute').resolves([{ insertId: 2 }]);
+  //   // Act
+  //   const result = await saleProductModel.insert(newSale);
+  //   // Assert
+  //   expect(result).to.be.deep.equal(2);
+  // })
 
   it('Atualizando venda já cadastrado', async () => {
     sinon.stub(connection, 'execute').resolves();

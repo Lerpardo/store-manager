@@ -33,7 +33,7 @@ const insert = async (soldProducts) => {
   );
   const values = soldProducts.map((e) => [insertId, ...Object.values(e)]);
 
-  await connection.execute(
+  await connection.query(
     'INSERT INTO StoreManager.sales_products (sale_id,product_id, quantity) VALUES ?',
     [values],
   );
